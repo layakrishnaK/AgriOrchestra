@@ -14,10 +14,10 @@ from langgraph.graph import END, START, StateGraph
 from backend.state import AgricultureState, create_initial_state
 from backend.mocks.mock_agents import (
     run_advisory_agent,
-    run_market_agent,
     run_soil_agent,
 )
 
+from backend.agents.market_agent import run as run_real_market_agent
 
 def initialize_workflow(state: AgricultureState) -> Dict[str, Any]:
     """Mark the workflow as running."""
@@ -43,10 +43,11 @@ def soil_node(state: AgricultureState) -> Dict[str, Any]:
 
 
 def market_node(state: AgricultureState) -> Dict[str, Any]:
-    """Execute the Market Agent."""
+    """Execute the real Market Agent."""
 
     try:
-        return run_market_agent(state)
+        return run_real_market_agent(state)
+
     except Exception as exc:
         return {
             "market_result": {
