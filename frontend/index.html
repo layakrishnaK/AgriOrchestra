@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Make the layout adapt to mobile and desktop screens. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="A demonstration frontend for an AI-powered agricultural crop recommendation system."
+  >
+
+  <title>Crop Recommendation Dashboard | Demo</title>
+
+  <!-- We will create this stylesheet in the next step. -->
+  <link rel="stylesheet" href="./styles.css">
+
+  <!--
+    We will create app.js after styling.
+    defer allows the script to run after the HTML has been parsed.
+  -->
+  <script src="./app.js" defer></script>
+</head>
+
+<body>
+  <!-- Keyboard users can skip directly to the dashboard. -->
+  <a class="skip-link" href="#main-content">Skip to dashboard</a>
+
+  <div class="app-shell">
+    <!-- Page header -->
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">AG</span>
+
+        <div class="brand-text">
+          <p class="eyebrow">Agricultural Decision Support</p>
+          <h1>Crop Recommendation Dashboard</h1>
+          <p class="header-description">
+            Explore soil inputs, sample crop recommendations, and agent activity.
+          </p>
+        </div>
+      </div>
+
+      <div class="header-status">
+        <span class="status-badge status-badge--demo">Demo Mode</span>
+        <span class="connection-label">No backend connected</span>
+      </div>
+    </header>
+
+    <main id="main-content" class="main-content">
+      <!-- Keep the limitations visible throughout the demonstration. -->
+      <section class="demo-notice" aria-labelledby="demo-notice-title">
+        <h2 id="demo-notice-title">Demonstration only</h2>
+
+        <p>
+          This frontend uses sample data. No AI agents or backend services
+          are connected. Crop results, market information, advisory content,
+          and execution steps are illustrative—not real recommendations
+          or current market prices.
+        </p>
+
+        <p>
+          Changing the sliders will update the selected inputs. In this
+          demonstration, it will not produce scientifically calculated
+          crop rankings.
+        </p>
+      </section>
+
+      <div class="dashboard-layout">
+        <!-- Input panel -->
+        <section
+          class="panel input-panel"
+          aria-labelledby="input-panel-title"
+        >
+          <div class="section-heading">
+            <p class="eyebrow">Step 1</p>
+            <h2 id="input-panel-title">Soil &amp; Weather Inputs</h2>
+            <p>Select your input values to explore the demonstration.</p>
+          </div>
+
+          <p id="input-help" class="helper-text">
+            Slider ranges and defaults are provisional demo settings.
+            Nitrogen, phosphorus, and potassium units must be confirmed
+            with the team before backend integration.
+          </p>
+
+          <!--
+            Input names are frontend identifiers only.
+            They do not define or assume the team's API request schema.
+          -->
+          <form
+              id="recommendation-form"
+              class="parameter-form"
+              aria-describedby="input-help"
+          >
+            <fieldset class="parameter-fieldset">
+              <legend>Soil nutrients</legend>
+
+              <!-- Nitrogen -->
+              <div class="slider-field">
+                <div class="slider-heading">
+                  <label for="nitrogen">Nitrogen (N)</label>
+                  <output id="nitrogen-value" for="nitrogen">90</output>
+                </div>
+
+                <input
+                  type="range"
+                  id="nitrogen"
+                  name="nitrogen"
+                  min="0"
+                  max="150"
+                  step="1"
+                  value="90"
+                  aria-describedby="nitrogen-help"
+                >
+
+                <div class="slider-scale" aria-hidden="true">
+                  <span>0</span>
+                  <span>150</span>
+                </div>
+
+                <p id="nitrogen-help" class="field-help">
+                  Demo scale; nutrient unit not yet confirmed.
+                </p>
+              </div>
+
+              <!-- Phosphorus -->
+              <div class="slider-field">
+                <div class="slider-heading">
+                  <label for="phosphorus">Phosphorus (P)</label>
+                  <output id="phosphorus-value" for="phosphorus">40</output>
+                </div>
+
+                <input
+                  type="range"
+                  id="phosphorus"
+                  name="phosphorus"
+                  min="0"
+                  max="150"
+                  step="1"
+                  value="40"
+                  aria-describedby="phosphorus-help"
+                >
+
+                <div class="slider-scale" aria-hidden="true">
+                  <span>0</span>
+                  <span>150</span>
+                </div>
+
+                <p id="phosphorus-help" class="field-help">
+                  Demo scale; nutrient unit not yet confirmed.
+                </p>
+              </div>
+
+              <!-- Potassium -->
+              <div class="slider-field">
+                <div class="slider-heading">
+                  <label for="potassium">Potassium (K)</label>
+                  <output id="potassium-value" for="potassium">40</output>
+                </div>
+
+                <input
+                  type="range"
+                  id="potassium"
+                  name="potassium"
+                  min="0"
+                  max="210"
+                  step="1"
+                  value="40"
+                  aria-describedby="potassium-help"
+                >
+
+                <div class="slider-scale" aria-hidden="true">
+                  <span>0</span>
+                  <span>210</span>
+                </div>
+
+                <p id="potassium-help" class="field-help">
+                  Demo scale; nutrient unit not yet confirmed.
+                </p>
+              </div>
+            </fieldset>
+
+            <fieldset class="parameter-fieldset">
+              <legend>Soil condition &amp; weather</legend>
+
+              <!-- Soil pH -->
+              <div class="slider-field">
+                <div class="slider-heading">
+                  <label for="soil-ph">Soil pH</label>
+                  <output id="soil-ph-value" for="soil-ph">6.5</output>
+                </div>
+
+                <input
+                  type="range"
+                  id="soil-ph"
+                  name="soilPh"
+                  min="0"
+                  max="14"
+                  step="0.1"
+                  value="6.5"
+                  aria-describedby="soil-ph-help"
+                >
+
+                <div class="slider-scale" aria-hidden="true">
+                  <span>0</span>
+                  <span>14</span>
+                </div>
+
+                <p id="soil-ph-help" class="field-help">
+                  Provisional demo range, pending team confirmation.
+                </p>
+              </div>
+
+              <!-- Temperature -->
+              <div class="slider-field">
+                <div class="slider-heading">
+                  <label for="temperature">Temperature</label>
+                  <output id="temperature-value" for="temperature">
+                    25 °C
+                  </output>
+                </div>
+
+                <input
+                  type="range"
+                  id="temperature"
+                  name="temperature"
+                  min="0"
+                  max="50"
+                  step="0.5"
+                  value="25"
+                  aria-describedby="temperature-help"
+                >
+
+                <div class="slider-scale" aria-hidden="true">
+                  <span>0 °C</span>
+                  <span>50 °C</span>
+                </div>
+
+                <p id="temperature-help" class="field-help">
+                  Demo display uses degrees Celsius; confirm backend units.
+                </p>
+              </div>
+
+              <!-- Humidity -->
+              <div class="slider-field">
+                <div class="slider-heading">
+                  <label for="humidity">Humidity</label>
+                  <output id="humidity-value" for="humidity">70%</output>
+                </div>
+
+                <input
+                  type="range"
+                  id="humidity"
+                  name="humidity"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="70"
+                  aria-describedby="humidity-help"
+                >
+
+                <div class="slider-scale" aria-hidden="true">
+                  <span>0%</span>
+                  <span>100%</span>
+                </div>
+
+                <p id="humidity-help" class="field-help">
+                  Demo display uses percent humidity.
+                </p>
+              </div>
+
+              <!-- Rainfall -->
+              <div class="slider-field">
+                <div class="slider-heading">
+                  <label for="rainfall">Rainfall</label>
+                  <output id="rainfall-value" for="rainfall">120 mm</output>
+                </div>
+
+                <input
+                  type="range"
+                  id="rainfall"
+                  name="rainfall"
+                  min="0"
+                  max="350"
+                  step="1"
+                  value="120"
+                  aria-describedby="rainfall-help"
+                >
+
+                <div class="slider-scale" aria-hidden="true">
+                  <span>0 mm</span>
+                  <span>350 mm</span>
+                </div>
+
+                <p id="rainfall-help" class="field-help">
+                  Demo display uses millimeters. The measurement period
+                  and accepted range must be confirmed with the team.
+                </p>
+              </div>
+            </fieldset>
+
+            <!-- JavaScript will populate and reveal this on invalid input. -->
+            <div
+              id="validation-error"
+              class="message message--error"
+              role="alert"
+              hidden
+            ></div>
+
+            <div class="form-actions">
+              <!--
+                Disabled until app.js is ready, preventing accidental
+                form submission while this HTML-only stage is incomplete.
+              -->
+              <button
+                type="submit"
+                id="recommend-button"
+                class="button button--primary"
+                aria-describedby="demo-action-help"
+                disabled
+              >
+                Recommend Crop
+              </button>
+
+              <button
+                type="reset"
+                id="reset-button"
+                class="button button--secondary"
+                disabled
+              >
+                Reset Inputs
+              </button>
+            </div>
+
+            <p id="demo-action-help" class="helper-text">
+              This action will display fixed sample results, not run an AI model.
+            </p>
+
+            <!-- app.js will hide this once initialization succeeds. -->
+            <p id="setup-notice" class="helper-text">
+              Interactive features are not enabled yet. They will become
+              available after app.js is implemented.
+            </p>
+          </form>
+        </section>
+
+        <!-- Results column -->
+        <div class="results-column">
+          <section
+            id="recommendation-section"
+            class="panel recommendation-panel"
+            aria-labelledby="recommendation-title"
+            aria-busy="false"
+          >
+            <div class="section-heading">
+              <p class="eyebrow">Step 2</p>
+              <h2 id="recommendation-title">Crop Recommendations</h2>
+              <p>Explore the top three crops in the sample result set.</p>
+            </div>
+
+            <span class="section-badge">Mock results</span>
+
+            <!-- JavaScript updates this text to announce progress. -->
+            <p
+              id="recommendation-status"
+              class="status-message"
+              role="status"
+              aria-atomic="true"
+            >
+              No demonstration has been run.
+            </p>
+
+            <!-- Initial state -->
+            <div id="results-empty-state" class="empty-state">
+              <h3>Your sample results will appear here</h3>
+              <p>
+                Once interactive features are available, select your
+                inputs and choose Recommend Crop.
+              </p>
+            </div>
+
+            <!-- Loading state -->
+            <div id="loading-state" class="loading-state" hidden>
+              <span class="loading-spinner" aria-hidden="true"></span>
+              <p>Preparing demonstration results…</p>
+              <p class="helper-text">
+                Simulated loading only. No backend request is being made.
+              </p>
+            </div>
+
+            <!-- General application error state -->
+            <div
+              id="application-error"
+              class="message message--error"
+              role="alert"
+              hidden
+            ></div>
+
+            <!-- app.js will insert exactly three mock crop cards here. -->
+            <div
+              id="crop-results"
+              class="crop-grid"
+              aria-label="Three demonstration crop recommendations"
+              hidden
+            ></div>
+          </section>
+
+          <div class="insights-grid">
+            <!-- Market information -->
+            <section
+              class="panel market-panel"
+              aria-labelledby="market-title"
+            >
+              <div class="section-heading">
+                <h2 id="market-title">Market Information</h2>
+                <p>Illustrative market details for the sample crops.</p>
+              </div>
+
+              <span class="section-badge">Sample data · Not live prices</span>
+
+              <div id="market-empty-state" class="empty-state">
+                <p>
+                  Sample market information will appear after the
+                  demonstration runs.
+                </p>
+              </div>
+
+              <!-- app.js will render clearly labelled mock content here. -->
+              <div id="market-results" class="market-results" hidden></div>
+            </section>
+
+            <!-- Agricultural advisory -->
+            <section
+              class="panel advisory-panel"
+              aria-labelledby="advisory-title"
+            >
+              <div class="section-heading">
+                <h2 id="advisory-title">Agricultural Advisory</h2>
+                <p>Example guidance presented for interface demonstration.</p>
+              </div>
+
+              <span class="section-badge">Mock advisory</span>
+
+              <div id="advisory-empty-state" class="empty-state">
+                <p>
+                  Demonstration advisory content will appear after the
+                  sample results are prepared.
+                </p>
+              </div>
+
+              <!-- app.js will insert demonstration advisory items here. -->
+              <div
+                id="advisory-results"
+                class="advisory-results"
+                hidden
+              ></div>
+
+              <p class="helper-text">
+                Not personalized agricultural advice. Do not use these
+                demonstration results to make farming decisions.
+              </p>
+            </section>
+          </div>
+
+          <!-- Agent trace viewer -->
+          <section
+              class="panel trace-panel"
+              aria-labelledby="trace-title"
+          >
+            <div class="section-heading">
+              <p class="eyebrow">Workflow Preview</p>
+              <h2 id="trace-title">Agent Trace Viewer</h2>
+              <p>
+                A simulated activity log—not actual agent execution
+                or internal AI reasoning.
+              </p>
+            </div>
+
+            <span class="section-badge">Simulated steps</span>
+
+            <div id="trace-empty-state" class="empty-state">
+              <p>No simulated activity to display yet.</p>
+            </div>
+
+            <!-- JavaScript inserts ordered activity steps here. -->
+            <ol
+              id="agent-trace"
+              class="trace-list"
+              aria-label="Simulated agent activity"
+              hidden
+            ></ol>
+          </section>
+        </div>
+      </div>
+
+      <noscript>
+        <div class="message message--error">
+          <p>
+            JavaScript is disabled in your browser. Enable it to use
+            slider value updates and the demonstration workflow once
+            app.js is implemented.
+          </p>
+        </div>
+      </noscript>
+    </main>
+
+    <footer class="site-footer">
+      <p>Agricultural Crop Recommendation System · Frontend Demonstration</p>
+      <p>Built with HTML, CSS, and vanilla JavaScript.</p>
+    </footer>
+  </div>
+</body>
+</html>
